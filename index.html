@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>182 BURGERS - Cardápio Digital</title>
+    <link rel="icon" type="image/png" href="imgs/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0b0b;
+            --card-bg: #141414;
+            --red-primary: rgb(250, 230, 5);
+            --red-hover: rgb(230, 230, 25);
+            --yellow-accent: #f5c518;
+            --white-text: #f0f0f0;
+            --gray-sub: #a0a0a0;
+            --border-color: #262626;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--white-text);
+            padding-bottom: 90px;
+            min-height: 100vh;
+        }
+
+        /* Header Layout */
+        header {
+            text-align: center;
+            padding: 25px 15px 15px;
+            background: linear-gradient(180deg, #181818 0%, #0b0b0b 100%);
+            border-bottom: 2px solid var(--red-primary);
+        }
+
+        .logo-container {
+            display: inline-block;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .logo-number {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5rem;
+            line-height: 0.85;
+            letter-spacing: 2px;
+            color: var(--red-primary);
+            font-weight: 900;
+        }
+
+        .logo-number span {
+            color: var(--yellow-accent);
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.4rem;
+            letter-spacing: 5px;
+            color: #ffffff;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            color: var(--gray-sub);
+            font-size: 0.85rem;
+            margin-top: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* Section Titles */
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin: 25px 0 15px;
+            border-bottom: 2px solid var(--red-primary);
+            padding-bottom: 5px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            color: var(--red-primary);
+            letter-spacing: 2px;
+        }
+
+        /* Burger Cards */
+        .menu-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 15px;
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-item:active {
+            transform: scale(0.99);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .item-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .item-price {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            color: var(--red-primary);
+            white-space: nowrap;
+        }
+
+        .item-desc {
+            color: var(--gray-sub);
+            font-size: 0.88rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .btn-add {
+            background-color: var(--red-primary);
+            color: #fff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-add:hover {
+            background-color: var(--red-hover);
+        }
+
+        /* Add-ons Section */
+        .addons-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .addon-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .addon-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .addon-price {
+            color: var(--red-primary);
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .btn-addon-add {
+            background-color: transparent;
+            border: 1px solid var(--red-primary);
+            color: var(--red-primary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-addon-add:hover {
+            background-color: var(--red-primary);
+            color: #fff;
+        }
+
+        /* Floating Bottom Cart Bar */
+        .cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #181818;
+            border-top: 2px solid var(--red-primary);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
+        }
+
+        .cart-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-count {
+            font-size: 0.8rem;
+            color: var(--gray-sub);
+            text-transform: uppercase;
+        }
+
+        .cart-total {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.6rem;
+            color: var(--yellow-accent);
+        }
+
+        .btn-cart {
+            background-color: #25d366;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Modal / Slide-over Cart & Checkout */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            overflow-y: auto;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: var(--bg-color);
+            min-height: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--red-primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            color: var(--red-primary);
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Cart Items List inside Modal */
+        .cart-items-list {
+            margin-bottom: 25px;
+        }
+
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #fff;
+        }
+
+        .cart-item-price {
+            color: var(--gray-sub);
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-qty {
+            background: #262626;
+            color: #fff;
+            border: 1px solid #444;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-value {
+            font-weight: bold;
+            font-size: 0.95rem;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Form Sections */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            color: var(--gray-sub);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--red-primary);
+        }
+
+        /* Option Selector (Delivery / Pickup) */
+        .toggle-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .toggle-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--gray-sub);
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.active {
+            background: var(--red-primary);
+            color: #fff;
+            border-color: var(--red-primary);
+        }
+
+        /* WhatsApp Submit Button */
+        .btn-whatsapp-submit {
+            background-color: #25d366;
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp-submit:disabled {
+            background-color: #444;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Customization Modal */
+        .modal-custom {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 1100;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .custom-box {
+            background: var(--card-bg);
+            border: 1px solid var(--red-primary);
+            border-radius: 8px;
+            max-width: 480px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .custom-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            color: var(--red-primary);
+            margin-bottom: 5px;
+        }
+
+        .custom-sub {
+            font-size: 0.85rem;
+            color: var(--gray-sub);
+            margin-bottom: 15px;
+        }
+
+        .addon-checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .addon-checkbox-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e1e1e;
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .addon-checkbox-item label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .addon-checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--red-primary);
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            color: var(--gray-sub);
+            padding: 30px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Logo Section -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-number">182</div>
+            <div class="logo-text">BURGERS</div>
+        </div>
+        <div class="tagline">Artesanal & Premium</div>
+    </header>
+
+    <div class="container">
+        <!-- Burgers Section -->
+        <div class="section-header">
+            <h2 class="section-title">BURGERS</h2>
+        </div>
+
+        <div id="burgers-list">
+            <!-- Dynamic Burger Items -->
+        </div>
+
+        <!-- Addons Section 
+        <div class="section-header" style="margin-top: 35px;">
+            <h2 class="section-title">ADICIONAIS</h2>
+        </div>
+
+        <div class="addons-grid" id="standalone-addons-list">
+             Dynamic Standalone Addons 
+        </div>-->
+    </div>
+
+    <!-- Floating Bottom Bar -->
+    <div class="cart-bar" id="cart-bar" style="display: none;">
+        <div class="cart-info">
+            <span class="cart-count" id="cart-count-text">0 ITENS</span>
+            <span class="cart-total" id="cart-total-text">R$ 0,00</span>
+        </div>
+        <button class="btn-cart" onclick="openCheckoutModal()">
+            Ver Pedido
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 13H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 7h8.22l1.25-7H3.14zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Customization Modal (Select Addons for Burger) -->
+    <div class="modal-custom" id="custom-modal">
+        <div class="custom-box">
+            <h3 class="custom-title" id="custom-burger-title">PERSONALIZAR</h3>
+            <p class="custom-sub">Deseja adicionar algum ingrediente extra?</p>
+            
+            <div class="addon-checkbox-group" id="modal-addons-list">
+                <!-- Checkboxes generated dynamically -->
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-add" style="background: #333;" onclick="closeCustomModal()">Cancelar</button>
+                <button class="btn-add" onclick="confirmAddBurger()">Adicionar ao Pedido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">SEU PEDIDO</h2>
+                <button class="btn-close" onclick="closeCheckoutModal()">&times;</button>
+            </div>
+
+            <!-- Cart Items Summary -->
+            <div class="cart-items-list" id="cart-items-container">
+                <!-- Items list dynamic -->
+            </div>
+
+            <div style="border-top: 1px dashed var(--border-color); padding-top: 15px; margin-bottom: 20px; text-align: right;">
+                <span style="color: var(--gray-sub); font-size: 0.9rem;">TOTAL DO PEDIDO:</span>
+                <span id="modal-total-price" style="font-family: 'Bebas Neue', cursive; font-size: 2rem; color: var(--yellow-accent); margin-left: 10px;">R$ 0,00</span>
+            </div>
+
+            <!-- Customer & Delivery Form -->
+            <form id="order-form" onsubmit="sendWhatsAppOrder(event)">
+                <div class="section-header" style="margin-top: 10px;">
+                    <h3 class="section-title" style="font-size: 1.5rem;">TIPO DE PEDIDO</h3>
+                </div>
+
+                <div class="toggle-options">
+                    <div class="toggle-btn active" id="btn-delivery" onclick="setOrderType('delivery')">Entrega</div>
+                    <div class="toggle-btn" id="btn-pickup" onclick="setOrderType('pickup')">Retirada</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Seu Nome *</label>
+                    <input type="text" id="cust-name" class="form-control" placeholder="Digite seu nome completo" required>
+                </div>
+
+                <!-- Delivery Fields -->
+                <div id="delivery-fields">
+                    <div class="form-group">
+                        <label>Rua / Avenida *</label>
+                        <input type="text" id="cust-street" class="form-control" placeholder="Nome da rua" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div class="form-group">
+                            <label>Número *</label>
+                            <input type="text" id="cust-number" class="form-control" placeholder="Nº" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Bairro *</label>
+                            <input type="text" id="cust-neighborhood" class="form-control" placeholder="Bairro" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Complemento / Ponto de Referência</label>
+                        <input type="text" id="cust-complement" class="form-control" placeholder="Apt, Bloco, Próximo a...">
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="section-header" style="margin-top: 10px;">
+                    <h3 class="section-title" style="font-size: 1.5rem;">FORMA DE PAGAMENTO</h3>
+                </div>
+
+                <div class="form-group">
+                    <select id="cust-payment" class="form-control" onchange="toggleChangeInput()" required>
+                        <option value="">Selecione a forma de pagamento...</option>
+                        <option value="Pix">PIX</option>
+                        <option value="Cartão de Débito">Cartão de Débito (Na entrega)</option>
+                        <option value="Cartão de Crédito">Cartão de Crédito (Na entrega)</option>
+                        <option value="Dinheiro">Dinheiro</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="change-group" style="display: none;">
+                    <label>Troco para quanto?</label>
+                    <input type="text" id="cust-change" class="form-control" placeholder="Ex: R$ 50,00 ou Não preciso de troco">
+                </div>
+
+                <div class="form-group">
+                    <label>Observações do Pedido</label>
+                    <textarea id="cust-obs" class="form-control" rows="2" placeholder="Ex: Tirar cebola, maionese à parte, etc."></textarea>
+                </div>
+
+                <button type="submit" class="btn-whatsapp-submit">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.384-.323-.333-.445-.339l-.379-.007c-.13 0-.343.049-.523.247-.18.198-.691.676-.691 1.647 0 .97.705 1.908.803 2.039.099.133 1.388 2.12 3.363 2.972.47.203.837.324 1.124.415.473.15.903.128 1.243.078.379-.056 1.17-.478 1.334-.94.165-.462.165-.857.115-.94-.048-.083-.18-.149-.378-.248z"/>
+                    </svg>
+                    Enviar Pedido no WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Data Definitions based on image menu
+        const BURGERS = [
+            {
+                id: 'b1',
+                name: '182 CLASSIC',
+                price: 20.00,
+                desc: 'Pão brioche, 120g de blend, queijo prato, alface, tomate, cebola roxa, maionese da casa e ketchup.'
+            },
+            {
+                id: 'b2',
+                name: '182 SMASH',
+                price: 22.00,
+                desc: 'Pão brioche, 2x 80g de blend smash, queijo americano, cebola picada, molho especial.'
+            },
+            {
+                id: 'b3',
+                name: '182 CHEDDAR',
+                price: 22.00,
+                desc: 'Pão brioche, 120g de blend, queijo cheddar, cebola caramelizada, maionese da casa e mostarda.'
+            },
+            {
+                id: 'b4',
+                name: '182 BACON',
+                price: 23.00,
+                desc: 'Pão brioche, 120g de blend, queijo cheddar, bacon crocante, alface, tomate, cebola roxa, maionese da casa e barbecue.'
+            },
+            {
+                id: 'b5',
+                name: '182 BBQ',
+                price: 24.00,
+                desc: 'Pão brioche, 120g de blend, queijo cheddar, bacon, onion rings, barbecue e maionese da casa.'
+            }
+        ];
+
+        const ADDONS = [
+            { id: 'a1', name: 'BACON', price: 3.00 },
+            { id: 'a2', name: 'QUEIJO CHEDDAR', price: 3.00 },
+            { id: 'a3', name: 'CEBOLA CARAMELIZADA', price: 2.00 },
+            { id: 'a4', name: 'ONION RINGS', price: 2.00 },
+            { id: 'a5', name: 'CARNE 120G', price: 6.00 }
+        ];
+
+        // WhatsApp Phone Number (Configurable)
+        const WHATSAPP_NUMBER = '5588981763996'; 
+
+        // State Management
+        let cart = [];
+        let activeBurgerForCustomization = null;
+        let orderType = 'delivery'; // 'delivery' or 'pickup'
+
+        // Render Menu Items
+        function renderMenu() {
+            const burgersContainer = document.getElementById('burgers-list');
+            burgersContainer.innerHTML = BURGERS.map(b => `
+                <div class="menu-item">
+                    <div>
+                        <div class="item-header">
+                            <span class="item-title">${b.name}</span>
+                            <span class="item-price">R$ ${b.price.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                        <p class="item-desc">${b.desc}</p>
+                    </div>
+                    <button class="btn-add" onclick="openCustomModal('${b.id}')">
+                        + Adicionar Pedido
+                    </button>
+                </div>
+            `).join('');
+
+            const addonsContainer = document.getElementById('standalone-addons-list');
+            addonsContainer.innerHTML = ADDONS.map(a => `
+                <div class="addon-card">
+                    <div>
+                        <div class="addon-name">${a.name}</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="addon-price">R$ ${a.price.toFixed(2).replace('.', ',')}</span>
+                        <button class="btn-addon-add" onclick="addStandaloneAddon('${a.id}')">+ Add</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Customization Modal Logic
+        function openCustomModal(burgerId) {
+            activeBurgerForCustomization = BURGERS.find(b => b.id === burgerId);
+            document.getElementById('custom-burger-title').innerText = activeBurgerForCustomization.name;
+            
+            const listEl = document.getElementById('modal-addons-list');
+            listEl.innerHTML = ADDONS.map(addon => `
+                <div class="addon-checkbox-item">
+                    <label>
+                        <input type="checkbox" value="${addon.id}" class="custom-addon-checkbox">
+                        <span>${addon.name}</span>
+                    </label>
+                    <span style="color: var(--yellow-accent); font-size: 0.9rem; font-weight: 600;">+ R$ ${addon.price.toFixed(2).replace('.', ',')}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('custom-modal').style.display = 'flex';
+        }
+
+        function closeCustomModal() {
+            document.getElementById('custom-modal').style.display = 'none';
+            activeBurgerForCustomization = null;
+        }
+
+        function confirmAddBurger() {
+            if (!activeBurgerForCustomization) return;
+
+            const checkboxes = document.querySelectorAll('.custom-addon-checkbox:checked');
+            const selectedAddons = [];
+            let addonsTotal = 0;
+
+            checkboxes.forEach(cb => {
+                const addon = ADDONS.find(a => a.id === cb.value);
+                if (addon) {
+                    selectedAddons.push(addon);
+                    addonsTotal += addon.price;
+                }
+            });
+
+            const cartItem = {
+                cartItemId: Date.now() + Math.random().toString(),
+                name: activeBurgerForCustomization.name,
+                basePrice: activeBurgerForCustomization.price,
+                addons: selectedAddons,
+                unitPrice: activeBurgerForCustomization.price + addonsTotal,
+                qty: 1
+            };
+
+            cart.push(cartItem);
+            updateCartUI();
+            closeCustomModal();
+        }
+
+        function addStandaloneAddon(addonId) {
+            const addon = ADDONS.find(a => a.id === addonId);
+            if (!addon) return;
+
+            const cartItem = {
+                cartItemId: Date.now() + Math.random().toString(),
+                name: `ADICIONAL: ${addon.name}`,
+                basePrice: addon.price,
+                addons: [],
+                unitPrice: addon.price,
+                qty: 1
+            };
+
+            cart.push(cartItem);
+            updateCartUI();
+        }
+
+        // Cart UI Management
+        function updateCartUI() {
+            const cartBar = document.getElementById('cart-bar');
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.unitPrice * item.qty), 0);
+
+            if (totalCount > 0) {
+                cartBar.style.display = 'flex';
+            } else {
+                cartBar.style.display = 'none';
+                closeCheckoutModal();
+            }
+
+            document.getElementById('cart-count-text').innerText = `${totalCount} ${totalCount === 1 ? 'ITEM' : 'ITENS'}`;
+            document.getElementById('cart-total-text').innerText = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+            document.getElementById('modal-total-price').innerText = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+            
+            renderCartModalItems();
+        }
+
+        function renderCartModalItems() {
+            const container = document.getElementById('cart-items-container');
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="empty-cart-msg">Seu carrinho está vazio.</div>';
+                return;
+            }
+
+            container.innerHTML = cart.map(item => {
+                const addonsText = item.addons.length > 0 
+                    ? `<div style="font-size: 0.78rem; color: var(--yellow-accent); margin-top: 3px;">+ ${item.addons.map(a => a.name).join(', ')}</div>` 
+                    : '';
+
+                return `
+                    <div class="cart-item-row">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            ${addonsText}
+                            <div class="cart-item-price">R$ ${item.unitPrice.toFixed(2).replace('.', ',')} un</div>
+                        </div>
+                        <div class="quantity-controls">
+                            <button class="btn-qty" onclick="changeQty('${item.cartItemId}', -1)">-</button>
+                            <span class="qty-value">${item.qty}</span>
+                            <button class="btn-qty" onclick="changeQty('${item.cartItemId}', 1)">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function changeQty(cartItemId, delta) {
+            const item = cart.find(i => i.cartItemId === cartItemId);
+            if (!item) return;
+
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.cartItemId !== cartItemId);
+            }
+            updateCartUI();
+        }
+
+        function openCheckoutModal() {
+            if (cart.length === 0) return;
+            renderCartModalItems();
+            document.getElementById('checkout-modal').style.display = 'block';
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').style.display = 'none';
+        }
+
+        // Toggle Delivery / Pickup
+        function setOrderType(type) {
+            orderType = type;
+            const btnDelivery = document.getElementById('btn-delivery');
+            const btnPickup = document.getElementById('btn-pickup');
+            const deliveryFields = document.getElementById('delivery-fields');
+            const streetInput = document.getElementById('cust-street');
+            const numberInput = document.getElementById('cust-number');
+            const neighborhoodInput = document.getElementById('cust-neighborhood');
+
+            if (type === 'delivery') {
+                btnDelivery.classList.add('active');
+                btnPickup.classList.remove('active');
+                deliveryFields.style.display = 'block';
+                streetInput.required = true;
+                numberInput.required = true;
+                neighborhoodInput.required = true;
+            } else {
+                btnPickup.classList.add('active');
+                btnDelivery.classList.remove('active');
+                deliveryFields.style.display = 'none';
+                streetInput.required = false;
+                numberInput.required = false;
+                neighborhoodInput.required = false;
+            }
+        }
+
+        function toggleChangeInput() {
+            const payment = document.getElementById('cust-payment').value;
+            const changeGroup = document.getElementById('change-group');
+            if (payment === 'Dinheiro') {
+                changeGroup.style.display = 'block';
+            } else {
+                changeGroup.style.display = 'none';
+            }
+        }
+
+        // Format & Send Order via WhatsApp
+        function sendWhatsAppOrder(event) {
+            event.preventDefault();
+
+            if (cart.length === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim();
+            const payment = document.getElementById('cust-payment').value;
+            const change = document.getElementById('cust-change').value.trim();
+            const obs = document.getElementById('cust-obs').value.trim();
+
+            let message = `🍔 *NOVO PEDIDO - 182 BURGERS*
+
+`;
+            message += `👤 *Cliente:* ${name}
+`;
+            message += `📍 *Tipo:* ${orderType === 'delivery' ? 'ENTREGA' : 'RETIRADA NA LOJA'}
+`;
+
+            if (orderType === 'delivery') {
+                const street = document.getElementById('cust-street').value.trim();
+                const number = document.getElementById('cust-number').value.trim();
+                const neighborhood = document.getElementById('cust-neighborhood').value.trim();
+                const complement = document.getElementById('cust-complement').value.trim();
+
+                message += `🏠 *Endereço:* ${street}, Nº ${number} - ${neighborhood}`;
+                if (complement) message += ` (${complement})`;
+                message += `
+`;
+            }
+
+            message += `
+🛒 *ITENS DO PEDIDO:*
+`;
+            
+            let total = 0;
+            cart.forEach(item => {
+                const subtotal = item.unitPrice * item.qty;
+                total += subtotal;
+                message += `• ${item.qty}x ${item.name}
+`;
+                if (item.addons.length > 0) {
+                    message += `  └ Adicionais: ${item.addons.map(a => a.name).join(', ')}
+`;
+                }
+                message += `  └ Valor: R$ ${subtotal.toFixed(2).replace('.', ',')}
+`;
+            });
+
+            message += `
+💳 *Forma de Pagamento:* ${payment}
+`;
+            if (payment === 'Dinheiro' && change) {
+                message += `💵 *Troco:* ${change}
+`;
+            }
+
+            if (obs) {
+                message += `📝 *Observações:* ${obs}
+`;
+            }
+
+            message += `
+💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Initialize App
+        renderMenu();
+    </script>
+</body>
+</html>
