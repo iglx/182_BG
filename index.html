@@ -943,9 +943,9 @@
             const change = document.getElementById('cust-change').value.trim();
             const obs = document.getElementById('cust-obs').value.trim();
 
-            let message = `🍔 *NOVO PEDIDO - 182 BURGERS*\\n\\n`;
-            message += `👤 *Cliente:* ${name}\\n`;
-            message += `📍 *Tipo:* ${orderType === 'delivery' ? 'ENTREGA' : 'RETIRADA NA LOJA'}\\n`;
+            let message = `🍔 *NOVO PEDIDO - 182 BURGERS*\n\n`;
+            message += `👤 *Cliente:* ${name}\n`;
+            message += `📍 *Tipo:* ${orderType === 'delivery' ? 'ENTREGA' : 'RETIRADA NA LOJA'}\n`;
 
             if (orderType === 'delivery') {
                 const street = document.getElementById('cust-street').value.trim();
@@ -955,32 +955,32 @@
 
                 message += `🏠 *Endereço:* ${street}, Nº ${number} - ${neighborhood}`;
                 if (complement) message += ` (${complement})`;
-                message += `\\n`;
+                message += `\n`;
             }
 
-            message += `\\n🛒 *ITENS DO PEDIDO:*\\n`;
+            message += `\n🛒 *ITENS DO PEDIDO:*\n`;
             
             let total = 0;
             cart.forEach(item => {
                 const subtotal = item.unitPrice * item.qty;
                 total += subtotal;
-                message += `• ${item.qty}x ${item.name}\\n`;
+                message += `• ${item.qty}x ${item.name}\n`;
                 if (item.addons.length > 0) {
-                    message += `  └ Adicionais: ${item.addons.map(a => a.name).join(', ')}\\n`;
+                    message += `  └ Adicionais: ${item.addons.map(a => a.name).join(', ')}\n`;
                 }
-                message += `  └ Valor: R$ ${subtotal.toFixed(2).replace('.', ',')}\\n`;
+                message += `  └ Valor: R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
             });
 
-            message += `\\n💳 *Forma de Pagamento:* ${payment}\\n`;
+            message += `\n💳 *Forma de Pagamento:* ${payment}\n`;
             if (payment === 'Dinheiro' && change) {
-                message += `💵 *Troco:* ${change}\\n`;
+                message += `💵 *Troco:* ${change}\n`;
             }
 
             if (obs) {
-                message += `📝 *Observações:* ${obs}\\n`;
+                message += `📝 *Observações:* ${obs}\n`;
             }
 
-            message += `\\n💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}`;
+            message += `\n💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}`;
 
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
