@@ -100,7 +100,7 @@
             letter-spacing: 2px;
         }
 
-        /* Burger Cards */
+        /* Menu Cards */
         .menu-item {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -166,52 +166,6 @@
 
         .btn-add:hover {
             background-color: var(--red-hover);
-        }
-
-        /* Add-ons Section */
-        .addons-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
-
-        .addon-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .addon-name {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .addon-price {
-            color: var(--red-primary);
-            font-family: 'Bebas Neue', cursive;
-            font-size: 1.2rem;
-            margin-right: 10px;
-        }
-
-        .btn-addon-add {
-            background-color: transparent;
-            border: 1px solid var(--red-primary);
-            color: var(--red-primary);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-addon-add:hover {
-            background-color: var(--red-primary);
-            color: #fff;
         }
 
         /* Floating Bottom Cart Bar */
@@ -549,14 +503,14 @@
             <!-- Dynamic Burger Items -->
         </div>
 
-        <!-- Addons Section 
+        <!-- Drinks Section -->
         <div class="section-header" style="margin-top: 35px;">
-            <h2 class="section-title">ADICIONAIS</h2>
+            <h2 class="section-title">BEBIDAS</h2>
         </div>
 
-        <div class="addons-grid" id="standalone-addons-list">
-             Dynamic Standalone Addons 
-        </div>-->
+        <div id="drinks-list">
+            <!-- Dynamic Drink Items -->
+        </div>
     </div>
 
     <!-- Floating Bottom Bar -->
@@ -684,7 +638,7 @@
     </div>
 
     <script>
-        // Data Definitions based on image menu
+        // Data Definitions
         const BURGERS = [
             {
                 id: 'b1',
@@ -715,6 +669,27 @@
                 name: '182 BBQ',
                 price: 24.00,
                 desc: 'Pão brioche, 120g de blend, queijo cheddar, bacon, onion rings, barbecue e maionese da casa.'
+            },
+            {
+                id: 'b6',
+                name: '182 NORDESTE',
+                price: 30.00,
+                desc: 'Pão brioche, 120g de blend, queijo cheddar, bacon, onion rings, barbecue e maionese da casa.'
+            }
+        ];
+
+        const DRINKS = [
+            {
+                id: 'd1',
+                name: 'COCA-COLA LATA 350ML',
+                price: 5.00,
+                desc: 'Refrigerante Coca-Cola lata 350ml gelada.'
+            },
+            {
+                id: 'd2',
+                name: 'COCA-COLA ZERO LATA 350ML',
+                price: 5.00,
+                desc: 'Refrigerante Coca-Cola Zero lata 350ml gelada.'
             }
         ];
 
@@ -723,11 +698,14 @@
             { id: 'a2', name: 'QUEIJO CHEDDAR', price: 3.00 },
             { id: 'a3', name: 'CEBOLA CARAMELIZADA', price: 2.00 },
             { id: 'a4', name: 'ONION RINGS', price: 2.00 },
-            { id: 'a5', name: 'CARNE 120G', price: 6.00 }
+            { id: 'a5', name: 'CARNE 120G', price: 6.00 },
+            { id: 'a6', name: 'OVO', price: 2.00 },
+            { id: 'a7', name: 'QUEIJO COALHO', price: 3.00 },
+            { id: 'a8', name: 'CARNE DE SOL', price: 5.00 }
         ];
 
-        // WhatsApp Phone Number (Configurable)
-        const WHATSAPP_NUMBER = '5585994337642'; 
+        // WhatsApp Phone Number
+        const WHATSAPP_NUMBER = '5588981763996'; 
 
         // State Management
         let cart = [];
@@ -752,18 +730,43 @@
                 </div>
             `).join('');
 
-            const addonsContainer = document.getElementById('standalone-addons-list');
-            addonsContainer.innerHTML = ADDONS.map(a => `
-                <div class="addon-card">
+            const drinksContainer = document.getElementById('drinks-list');
+            drinksContainer.innerHTML = DRINKS.map(d => `
+                <div class="menu-item">
                     <div>
-                        <div class="addon-name">${a.name}</div>
+                        <div class="item-header">
+                            <span class="item-title">${d.name}</span>
+                            <span class="item-price">R$ ${d.price.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                        <p class="item-desc">${d.desc}</p>
                     </div>
-                    <div style="display: flex; align-items: center;">
-                        <span class="addon-price">R$ ${a.price.toFixed(2).replace('.', ',')}</span>
-                        <button class="btn-addon-add" onclick="addStandaloneAddon('${a.id}')">+ Add</button>
-                    </div>
+                    <button class="btn-add" onclick="addDirectToCart('${d.id}', 'drink')">
+                        + Adicionar Pedido
+                    </button>
                 </div>
             `).join('');
+        }
+
+        // Add direct item (like drinks) to cart
+        function addDirectToCart(itemId, type) {
+            let itemData = null;
+            if (type === 'drink') {
+                itemData = DRINKS.find(d => d.id === itemId);
+            }
+
+            if (!itemData) return;
+
+            const cartItem = {
+                cartItemId: Date.now() + Math.random().toString(),
+                name: itemData.name,
+                basePrice: itemData.price,
+                addons: [],
+                unitPrice: itemData.price,
+                qty: 1
+            };
+
+            cart.push(cartItem);
+            updateCartUI();
         }
 
         // Customization Modal Logic
@@ -817,23 +820,6 @@
             cart.push(cartItem);
             updateCartUI();
             closeCustomModal();
-        }
-
-        function addStandaloneAddon(addonId) {
-            const addon = ADDONS.find(a => a.id === addonId);
-            if (!addon) return;
-
-            const cartItem = {
-                cartItemId: Date.now() + Math.random().toString(),
-                name: `ADICIONAL: ${addon.name}`,
-                basePrice: addon.price,
-                addons: [],
-                unitPrice: addon.price,
-                qty: 1
-            };
-
-            cart.push(cartItem);
-            updateCartUI();
         }
 
         // Cart UI Management
@@ -957,13 +943,9 @@
             const change = document.getElementById('cust-change').value.trim();
             const obs = document.getElementById('cust-obs').value.trim();
 
-            let message = `🍔 *NOVO PEDIDO - 182 BURGERS*
-
-`;
-            message += `👤 *Cliente:* ${name}
-`;
-            message += `📍 *Tipo:* ${orderType === 'delivery' ? 'ENTREGA' : 'RETIRADA NA LOJA'}
-`;
+            let message = `🍔 *NOVO PEDIDO - 182 BURGERS*\\n\\n`;
+            message += `👤 *Cliente:* ${name}\\n`;
+            message += `📍 *Tipo:* ${orderType === 'delivery' ? 'ENTREGA' : 'RETIRADA NA LOJA'}\\n`;
 
             if (orderType === 'delivery') {
                 const street = document.getElementById('cust-street').value.trim();
@@ -973,43 +955,32 @@
 
                 message += `🏠 *Endereço:* ${street}, Nº ${number} - ${neighborhood}`;
                 if (complement) message += ` (${complement})`;
-                message += `
-`;
+                message += `\\n`;
             }
 
-            message += `
-🛒 *ITENS DO PEDIDO:*
-`;
+            message += `\\n🛒 *ITENS DO PEDIDO:*\\n`;
             
             let total = 0;
             cart.forEach(item => {
                 const subtotal = item.unitPrice * item.qty;
                 total += subtotal;
-                message += `• ${item.qty}x ${item.name}
-`;
+                message += `• ${item.qty}x ${item.name}\\n`;
                 if (item.addons.length > 0) {
-                    message += `  └ Adicionais: ${item.addons.map(a => a.name).join(', ')}
-`;
+                    message += `  └ Adicionais: ${item.addons.map(a => a.name).join(', ')}\\n`;
                 }
-                message += `  └ Valor: R$ ${subtotal.toFixed(2).replace('.', ',')}
-`;
+                message += `  └ Valor: R$ ${subtotal.toFixed(2).replace('.', ',')}\\n`;
             });
 
-            message += `
-💳 *Forma de Pagamento:* ${payment}
-`;
+            message += `\\n💳 *Forma de Pagamento:* ${payment}\\n`;
             if (payment === 'Dinheiro' && change) {
-                message += `💵 *Troco:* ${change}
-`;
+                message += `💵 *Troco:* ${change}\\n`;
             }
 
             if (obs) {
-                message += `📝 *Observações:* ${obs}
-`;
+                message += `📝 *Observações:* ${obs}\\n`;
             }
 
-            message += `
-💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}`;
+            message += `\\n💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}`;
 
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
