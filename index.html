@@ -930,6 +930,7 @@
         }
 
         // Format & Send Order via WhatsApp
+        // Format & Send Order via WhatsApp
         function sendWhatsAppOrder(event) {
             event.preventDefault();
 
@@ -943,9 +944,12 @@
             const change = document.getElementById('cust-change').value.trim();
             const obs = document.getElementById('cust-obs').value.trim();
 
-            let message = `🍔 *NOVO PEDIDO - 182 BURGERS*\n\n`;
-            message += `👤 *Cliente:* ${name}\n`;
-            message += `📍 *Tipo:* ${orderType === 'delivery' ? 'ENTREGA' : 'RETIRADA NA LOJA'}\n`;
+            // Usamos crases (`) e quebras de linha reais
+            let message = `🍔 *NOVO PEDIDO - 182 BURGERS*
+
+👤 *Cliente:* ${name}
+📍 *Tipo:* ${orderType === 'delivery' ? 'ENTREGA' : 'RETIRADA NA LOJA'}
+`;
 
             if (orderType === 'delivery') {
                 const street = document.getElementById('cust-street').value.trim();
@@ -982,8 +986,9 @@
 
             message += `\n💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}`;
 
+            // Garante a codificação UTF-8 correta para emojis e acentos
             const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`;
             
             window.open(whatsappUrl, '_blank');
         }
